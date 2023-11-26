@@ -2,13 +2,13 @@
 
 ## Foreword
 
-The purpose of this project is to calculate the vacancy formation energies in 5 quaternaries, 10 ternaries, 10 binaries, and 5 pure metals. The first 15 alloys are shown in Table 1 of [this paper](http://dx.doi.org/10.1016/j.jallcom.2023.170556); note that the quinary, MoNbTaVW, has been studied in another project. The 10 binaries are MoNb, MoTa, MoV, MoW, NbTa, NbV, NbW, TaV, TaW, and VW. The 5 pure metals are Mo, Nb, Ta, V, and W. All alloys are equal-molar. In total, there are 30 metals and alloys, and we will run 1480 VASP calculations, i.e., $5\times 3 = 15$ for pure metals, $5\times 73 = 365$ for quaternaries, $10\times 55 = 550$ for ternaries, and $10\times 55 = 550$ for binaries.
+The purpose of this project is to calculate the vacancy formation energies in 5 quaternaries, 10 ternaries, 10 binaries, and 5 pure metals. The first 15 alloys are shown in Table 1 of [this paper](http://dx.doi.org/10.1016/j.jallcom.2023.170556); note that the quinary, MoNbTaVW, has been studied in another project. The 10 binaries are MoNb, MoTa, MoV, MoW, NbTa, NbV, NbW, TaV, TaW, and VW. The 5 pure metals are Mo, Nb, Ta, V, and W. All alloys are equal-molar. In total, there are 30 metals and alloys, and we will run 1480 VASP calculations, i.e., $5\times 3 = 15$ for pure metals, $5\times 73 = 365$ for quaternaries, $10\times 55 = 550$ for ternaries, and $10\times 55 = 550$ for binaries. Based on these simulations, we will obtain $5+5\times 4+10\times 3+10\times 2 = 75$ vacancy formation energies. Then we can try training a machine learning model to predict these energies from local chemical compositions.
 
 To run a VASP simulation on OSCER, we need five files: `vasp.batch`, `INCAR`, `KPOINTS`, `POTCAR`, and `POSCAR`. The first three files are the same for most simulations (except those for a single ion in a vacuum) in this project, and they can be found in the `common/` directory in this GitHub repository. The fourth file, `POTCAR`, can be made from one or more of `POTCAR_Mo`, `POTCAR_Nb`, `POTCAR_Ta`, `POTCAR_V`, and `POTCAR_W`, which can also be found in the `common/` directory in this GitHub repository. The last file, `POSCAR`, differs for different types of materials and/or simulations.
 
 Note: By default, one node and 64 cores are used. If needed, we can increase the numbers of nodes and/or cores in `vasp.batch`, then we may want to modify `INCAR` as well. It is suggested that `KPAR` is set as the number of nodes while `NCORE` the number of cores per node.
 
-If you use 64 cores for each job, please make sure not to run more than 8 jobs in total at any time, such that other students can also run simulations.
+If you use 64 cores for each job, please make sure not to run more than 8 jobs in total at any time, such that other students can also run simulations. Also, pay attention to the amount of data in your $HOME. They can build up quickly. Once the data is more than 20 GB, you won't be able to run anything.
 
 ## Pure metals
 
