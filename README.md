@@ -85,7 +85,7 @@ The other four pure metals are: Nb, Ta, V, and W.
 
 Follow the same procedures for Mo, we can calculate the vacancy formation energies in other four pure metals. Don't forget to use the correct `POTCAR` and _E_<sub>metal</sub> for each metal.
 
-Once you are done with this part, email the vacancy formation energies to Subah and me.
+Once you are done with this part, email the vacancy formation energies to Subah and me. Also let Subah know the "single ion in a vacuum" energies for all five metals. Subah can then use that to calculate the vacancy formation energies for the five elements in the quinary.
 
 ## Quaternaries
 
