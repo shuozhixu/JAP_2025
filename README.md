@@ -2,11 +2,11 @@
 
 ## Foreword
 
-The purpose of this project is to calculate the vacancy formation energies in 5 quaternaries, 10 ternaries, 10 binaries, and 5 pure metals. The first 15 alloys are shown in Table 1 of [this paper](http://dx.doi.org/10.1016/j.jallcom.2023.170556); note that the quinary, MoNbTaVW, has been studied in another project. The 10 binaries are MoNb, MoTa, MoV, MoW, NbTa, NbV, NbW, TaV, TaW, and VW. The 5 pure metals are Mo, Nb, Ta, V, and W. All alloys are equal-molar. In total, there are 30 metals and alloys, and you will run in total 1480 VASP calculations, i.e., $5\times 3 = 15$ for pure metals, $5\times 73 = 365$ for quaternaries, $10\times 55 = 550$ for ternaries, and $10\times 55 = 550$ for binaries.
+The purpose of this project is to calculate the vacancy formation energies in 5 quaternaries, 10 ternaries, 10 binaries, and 5 pure metals. The first 15 alloys are shown in Table 1 of [this paper](http://dx.doi.org/10.1016/j.jallcom.2023.170556); note that the quinary, MoNbTaVW, has been studied in another project. The 10 binaries are MoNb, MoTa, MoV, MoW, NbTa, NbV, NbW, TaV, TaW, and VW. The 5 pure metals are Mo, Nb, Ta, V, and W. All alloys are equal-molar. In total, there are 30 metals and alloys, and we will run 1480 VASP calculations, i.e., $5\times 3 = 15$ for pure metals, $5\times 73 = 365$ for quaternaries, $10\times 55 = 550$ for ternaries, and $10\times 55 = 550$ for binaries.
 
-To run a VASP simulation on OSCER, you need five files: `vasp.batch`, `INCAR`, `KPOINTS`, `POTCAR`, and `POSCAR`. The first three files are the same for most simulations (except those for a single ion in a vacuum) in this project, and they can be found in the `common/` directory in this GitHub repository. The fourth file, `POTCAR`, can be made from one or more of `POTCAR_Mo`, `POTCAR_Nb`, `POTCAR_Ta`, `POTCAR_V`, and `POTCAR_W`, which can also be found in the `common/` directory in this GitHub repository. The last file, `POSCAR`, differs for different types of materials and/or simulations.
+To run a VASP simulation on OSCER, we need five files: `vasp.batch`, `INCAR`, `KPOINTS`, `POTCAR`, and `POSCAR`. The first three files are the same for most simulations (except those for a single ion in a vacuum) in this project, and they can be found in the `common/` directory in this GitHub repository. The fourth file, `POTCAR`, can be made from one or more of `POTCAR_Mo`, `POTCAR_Nb`, `POTCAR_Ta`, `POTCAR_V`, and `POTCAR_W`, which can also be found in the `common/` directory in this GitHub repository. The last file, `POSCAR`, differs for different types of materials and/or simulations.
 
-Note: By default, one node and 64 cores are used. If needed, you can increase the numbers of nodes and/or cores in `vasp.batch`, then you may want to modify `INCAR` as well. It is suggested that `KPAR` is set as the number of nodes while `NCORE` the number of cores per node.
+Note: By default, one node and 64 cores are used. If needed, we can increase the numbers of nodes and/or cores in `vasp.batch`, then we may want to modify `INCAR` as well. It is suggested that `KPAR` is set as the number of nodes while `NCORE` the number of cores per node.
 
 If you use 64 cores for each job, please make sure not to run more than 8 jobs in total at any time, such that other students can also run simulations.
 
@@ -41,11 +41,11 @@ Submit the job by
 
 	sbatch vasp.batch
 	
-Once the job is fnished, check the file `log.mpi`. The job was successfully finished if you see this line
+Once the job is fnished, check the file `log.mpi`. The job was successfully finished if we see this line
 
 	reached required accuracy - stopping structural energy minimisation
 
-Immediately after that line you may see some warnings, such as
+Immediately after that line we may see some warnings, such as
 
 	Warning: ieee_invalid is signaling
 	Warning: ieee_divide_by_zero is signaling
@@ -57,7 +57,7 @@ These warnings are fine. Do not worry about them.
 
 However, if you don't see the line `reached required accuracy` and you are sure the job was finished, that would indicate that the job failed. Consult with Subah or me.
 
-Once you are sure the job was successfully finished, open the file `OSZICAR` and go to the last line, where you will find the value of `F`, like this:
+Once the job was successfully finished, open the file `OSZICAR` and go to the last line, where we will find the value of `F`, like this:
 
 	F= -.XXXX
 
@@ -148,11 +148,11 @@ Follow the steps above. Create a series of subdirectories, `3`, `4`, ..., `72`. 
 
 Create a subdirectory `0`. Do not delete any ion from `POSCAR`. Submit the job. This is to calculate the energy of the intact structure, _E_<sub>perfect</sub>.
 
-In total, you will run 73 VASP calculations for MoNbTaV.
+In total, we will run 73 VASP calculations for MoNbTaV.
 
 Once all 73 jobs were successfully finished. Rename them by adding the corresponding ion name to each subdirectory name. For example, rename `1` as `Mo-1`, rename `2` as `Mo-2`, and so on. Then starting from `19`, rename `19` as `Nb-1`, rename `20` as `Nb-2`, and so on. Leave the last subdirectory as `0`.
 
-Then in calculating the vacancy formation energy, _E_<sub>defective</sub> for the same type of ion (e.g., Mo) should be the mean value among `Mo-1`, `Mo-2`, ..., `Mo-18`. Eventually, you will have four vacancy formation energies, one for each type of element, in MoNbTaV.
+Then in calculating the vacancy formation energy, _E_<sub>defective</sub> for the same type of ion (e.g., Mo) should be the mean value among `Mo-1`, `Mo-2`, ..., `Mo-18`. Eventually, we will have four vacancy formation energies, one for each type of element, in MoNbTaV.
 
 ### MoNbTaW
 
@@ -170,6 +170,8 @@ Note: the vacancy formation energy for Mo is likely not the same in pure Mo, MoN
 
 Follow the same procedures for MoNbTaV, we can obtain the vacancy formation energies in the other three quaternaries.
 
+Once you are done with this part, email the vacancy formation energies to Subah and me.
+
 ## Ternaries
 
 All ternaries use the same `POSCAR`, which can be found in the `ternaries/` directory in this GitHub repository. There are 54 ions in each ternary.
@@ -186,6 +188,8 @@ Follow the same procedures for MoNbTaV, we can obtain the vacancy formation ener
 
 Follow the same procedures for MoNbTa, we can obtain the vacancy formation energies in the other nine ternaries.
 
+Once you are done with this part, email the vacancy formation energies to Subah and me.
+
 ## Binaries
 
 All binaries use the same `POSCAR`, which can be found in the `binaries/` directory in this GitHub repository. There are 54 ions in each binary.
@@ -201,6 +205,8 @@ Follow the same procedures for MoNbTaV, we can obtain the vacancy formation ener
 ### Other nine binaries
 
 Follow the same procedures for MoNb, we can obtain the vacancy formation energies in the other nine binaries.
+
+Once you are done with this part, email the vacancy formation energies to Subah and me.
 
 ## References
 
