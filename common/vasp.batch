@@ -1,10 +1,10 @@
 #!/bin/bash
 
 #SBATCH --partition=cm3atou
-#SBATCH --job-name=relax
-#SBATCH --output=relax.out
-#SBATCH --error=relax.err
-#SBATCH --time=128:00:00
+#SBATCH --job-name=vacancy
+#SBATCH --output=vacancy.out
+#SBATCH --error=vacancy.err
+#SBATCH --time=240:00:00
 #SBATCH --nodes=1 --ntasks-per-node=64
 
 cd ${SLURM_SUBMIT_DIR}
