@@ -114,8 +114,8 @@ Within the directory `MoNbTaV`, create a subdirectory named `1`, then copy the f
 
 	17 18 18 18
 	Direct
-	0.3333333333	0.3333333333	0.6666666667
-	0.6666666667	0.3333333333	0.3333333333
+	0.83333333  0.37500000  0.16666667
+	0.33333333  0.75000000  1.00000000
 
 Note that two changes were made: (i) The first number 18 in line 7 was changed to 17; (ii) the original line 9, which corresponds to the original first ion's position, was removed.
 
@@ -129,8 +129,8 @@ Then edit `POSCAR` by removing the second ion, i.e., keeping lines 1 to 6 unchan
 
 	17 18 18 18
 	Direct
-	0.0000000000	0.3333333333	0.6666666667
-	0.6666666667	0.3333333333	0.3333333333
+	0.66666667  0.75000000  1.00000000
+	0.33333333  0.75000000  1.00000000
 
 Note that two changes were made: (i) The first number 18 in line 7 was changed to 17; (ii) the original line 10, which corresponds to the original second ion's position, was removed.
 
