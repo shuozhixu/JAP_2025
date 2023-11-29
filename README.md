@@ -6,9 +6,9 @@ The purpose of this project is to calculate the vacancy formation energies in 5 
 
 To run a VASP simulation on OSCER, we need five files: `vasp.batch`, `INCAR`, `KPOINTS`, `POTCAR`, and `POSCAR`. The first three files are the same for most simulations (except those for a single ion in a vacuum) in this project, and they can be found in the `common/` directory in this GitHub repository. The fourth file, `POTCAR`, can be made from one or more of `POTCAR_Mo`, `POTCAR_Nb`, `POTCAR_Ta`, `POTCAR_V`, and `POTCAR_W`, which can also be found in the `common/` directory in this GitHub repository. The last file, `POSCAR`, differs for different types of materials and/or simulations.
 
-By default, one node and 64 cores are used. If needed, we can increase the numbers of nodes and/or cores in `vasp.batch`, then we may want to modify `INCAR` as well. It is suggested that `KPAR` is set as the number of nodes while `NCORE` the number of cores per node.
+By default, 64 cores are used. If needed, we can increase the numbers of nodes and/or cores in `vasp.batch`, then we may want to modify `INCAR` as well. It is suggested that `KPAR` is set as the number of nodes while `NCORE` the number of cores per node.
 
-Note: If you use 64 cores for each job, please make sure not to run more than 8 jobs in total at any time, such that other students can also run simulations. Also, pay attention to the amount of data in your $HOME. They can build up quickly. Once the data exceeds 20 GB, you won't be able to run anything. In addition, it may be wise to figure out how to run those high-throughput simulations automatically, e.g., using [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)), as opposed to manually making changes to the files.
+Note: If you use 64 cores for each job, please make sure not to run more than 4 jobs on the `cm3atou` queue in total at any time, such that other students can also run simulations. Feel free to run jobs on other queues if you have access. Also, pay attention to the amount of data in your $HOME. They can build up quickly. Once the data exceeds 20 GB, you won't be able to run anything. In addition, it may be wise to figure out how to run those high-throughput simulations automatically, e.g., using [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)), as opposed to manually making changes to the files.
 
 ## Pure metals
 
