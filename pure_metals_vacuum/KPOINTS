@@ -1,5 +1,0 @@
-K-Points # Comment
-0 # automatic generation of k-points
-Monkhorst # M use Monkhorst Pack
-1 1 1 # grid 11x11x11
-0 0 0 # shift (usually 0 0 0)

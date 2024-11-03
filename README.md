@@ -8,7 +8,7 @@ To run a VASP simulation on OSCER, we need five files: `vasp.batch`, `INCAR`, `K
 
 By default, 64 cores are used. If needed, we can increase the numbers of nodes and/or cores in `vasp.batch`, then we may want to modify `INCAR` as well. It is suggested that `KPAR` is set as the number of nodes while `NCORE` the number of cores per node.
 
-Note: If you use 64 cores for each job, please make sure not to run more than 4 jobs on the `cm3atou` queue in total at any time, such that other students can also run simulations. Feel free to run jobs on other queues if you have access. Also, pay attention to the amount of data in your $HOME. They can build up quickly. Once the data exceeds 20 GB, you won't be able to run anything. In addition, it may be wise to figure out how to run those high-throughput simulations automatically, e.g., using [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)), as opposed to manually making changes to the files.
+Note: If you use 64 cores for each job, please make sure not to run more than 6 jobs on the `cm3atou` queue in total at any time, such that other students can also run simulations. Feel free to run jobs on other queues if you have access. Also, pay attention to the amount of data in your $HOME. They can build up quickly. Once the data exceeds 20 GB, you won't be able to run anything. In addition, it may be wise to figure out how to run those high-throughput simulations automatically, e.g., using [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)), as opposed to manually making changes to the files.
 
 ## Pure metals
 
@@ -65,15 +65,7 @@ That negative number is the energy of the system containing a vacancy. Let's cal
 
 #### No removal of any ion
 
-Create a subdirectory `0`. Do not delete any ion from `POSCAR`. Again, do NOT use any files in the `pure_metals_vacuum/` directory in this GitHub repository. Submit the job. Record that negative number in `OSZICAR`, which is the energy of the intact structure. Let's call it _E_<sub>perfect</sub>.
-
-#### A single ion in a vacuum
-
-Create a subdirectory `vac`. Copy there the four files in the `pure_metals_vacuum/` directory in this GitHub repository, as well as `POTCAR` which is from
-
-	cp POTCAR_Mo POTCAR
-
-Submit the job. This is to calculate the energy of a single Mo ion in a vacuum. Let's call it _E_<sub>metal</sub>.
+Create a subdirectory `0`. Do not delete any ion from `POSCAR`. Again, do NOT use any files in the `pure_metals_vacuum/` directory in this GitHub repository. Submit the job. Record that negative number in `OSZICAR`, which is the energy of the intact structure. Let's call it _E_<sub>perfect</sub>. The energy of a single atom, _E_<sub>metal</sub>, equals _E_<sub>perfect</sub> divided by the number of atoms, i.e., 54.
 
 #### Vacancy formation energy
 
