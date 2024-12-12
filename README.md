@@ -1,14 +1,12 @@
-# Vacancy formation energies in refractory metals and alloys
+# Refractory non-dilute random alloys: Vacancy formation energies
 
 ## Foreword
 
-The purpose of this project is to calculate the vacancy formation energies in 5 quaternaries, 10 ternaries, 10 binaries, and 5 pure metals. The first 15 alloys are shown in Table 1 of [this paper](http://dx.doi.org/10.1016/j.jallcom.2023.170556); note that the quinary, MoNbTaVW, has been studied in another project. The 10 binaries are MoNb, MoTa, MoV, MoW, NbTa, NbV, NbW, TaV, TaW, and VW. The 5 pure metals are Mo, Nb, Ta, V, and W. All alloys are equal-molar. In total, there are 30 metals and alloys, and we will run 1480 VASP calculations, i.e., $5\times 3 = 15$ for pure metals, $5\times 73 = 365$ for quaternaries, $10\times 55 = 550$ for ternaries, and $10\times 55 = 550$ for binaries. Based on these simulations, we will obtain $5+5\times 4+10\times 3+10\times 2 = 75$ vacancy formation energies. Then we can try training a machine learning model to predict these energies from local chemical compositions.
+The purpose of this project is to calculate the vacancy formation energies in 1 quinary, 5 quaternaries, 10 ternaries, 10 binaries, and 5 pure metals. The first 16 alloys are shown in Table 1 of [this paper](http://dx.doi.org/10.1016/j.jallcom.2023.170556). The 10 binaries are MoNb, MoTa, MoV, MoW, NbTa, NbV, NbW, TaV, TaW, and VW. The 5 pure metals are Mo, Nb, Ta, V, and W. All alloys are equal-molar. In total, there are 31 metals and alloys, and we will run 1530 VASP calculations, i.e., $5\times 2 = 10$ for pure metals, 55 for the quinary, $5\times 73 = 365$ for quaternaries, $10\times 55 = 550$ for ternaries, and $10\times 55 = 550$ for binaries. Based on these simulations, we will obtain $5+5+5\times 4+10\times 3+10\times 2 = 80$ vacancy formation energies.
 
 To run a VASP simulation on OSCER, we need five files: `vasp.batch`, `INCAR`, `KPOINTS`, `POTCAR`, and `POSCAR`. The first three files are the same for most simulations (except those for a single ion in a vacuum) in this project, and they can be found in the `common/` directory in this GitHub repository. The fourth file, `POTCAR`, can be made from one or more of `POTCAR_Mo`, `POTCAR_Nb`, `POTCAR_Ta`, `POTCAR_V`, and `POTCAR_W`, which can also be found in the `common/` directory in this GitHub repository. The last file, `POSCAR`, differs for different types of materials and/or simulations.
 
-By default, 64 cores are used. If needed, we can increase the numbers of nodes and/or cores in `vasp.batch`, then we may want to modify `INCAR` as well. It is suggested that `KPAR` is set as the number of nodes while `NCORE` the number of cores per node.
-
-Note: If you use 64 cores for each job, please make sure not to run more than 6 jobs on the `cm3atou` queue in total at any time, such that other students can also run simulations. Feel free to run jobs on other queues if you have access. Also, pay attention to the amount of data in your $HOME. They can build up quickly. Once the data exceeds 20 GB, you won't be able to run anything. In addition, it may be wise to figure out how to run those high-throughput simulations automatically, e.g., using [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)), as opposed to manually making changes to the files.
+By default, 64 cores are used. If needed, we can increase the numbers of nodes and/or cores in `vasp.batch`, then we may want to modify `INCAR` as well. It is suggested that `KPAR` is set as the number of nodes while `NCORE` the number of cores per node. In addition, it may be wise to figure out how to run those high-throughput simulations automatically, e.g., using [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)), as opposed to manually making changes to the files.
 
 ## Pure metals
 
@@ -55,7 +53,7 @@ Immediately after that line we may see some warnings, such as
 	
 These warnings are fine. Do not worry about them.
 
-However, if you don't see the line `reached required accuracy` and you are sure the job was finished, that would indicate that the job failed. Consult with Subah or me.
+If we don't see the line `reached required accuracy`, that would indicate that the job failed.
 
 Once the job was successfully finished, open the file `OSZICAR` and go to the last line, where we will find the value of `F`, like this:
 
@@ -77,7 +75,74 @@ The other four pure metals are: Nb, Ta, V, and W.
 
 Follow the same procedures for Mo, we can calculate the vacancy formation energies in other four pure metals. Don't forget to use the correct `POTCAR` and _E_<sub>metal</sub> for each metal.
 
-Once you are done with this part, email the vacancy formation energies to Subah and me. Also let Subah know the "single ion in a vacuum" energies for all five metals. Subah can then use that to calculate the vacancy formation energies for the five elements in the quinary.
+## Quinary
+
+There is only one quinary, MoNbTaVW.
+
+### MoNbTaVW
+
+#### POTCAR
+
+The `POTCAR` file for MoNbTaVW can be obtained by
+
+	cat POTCAR_Mo POTCAR_Nb POTCAR_Ta POTCAR_V POTCAR_W > POTCAR
+
+#### Removal of the first ion
+
+Create a directory named `MoNbTaVW` on OSCER, and copy `vasp.batch`, `INCAR`, `KPOINTS`, `POTCAR`, and `POSCAR` there.
+
+According to lines 6 and 7 in `POSCAR`, the system contains 54 ions:
+
+- The first 11 ions are Mo ions, whose positions are given in lines 9 to 19.
+- The next 11 ions are Nb ions, whose positions are given in lines 20 to 30.
+- The next 10 (NOT 11) ions are Ta ions, whose positions are given in lines 31 to 40.
+- The next 11 ions are V ions, whose positions are given in lines 41 to 51.
+- The last 11 ions are W ions, whose positions are given in lines 52 to 62.
+
+Within the directory `MoNbTaVW`, create a subdirectory named `1`, then copy the five files into it. Edit `POSCAR` by removing the first ion, i.e., keeping lines 1 to 6 unchanged, and from line 7, it should read
+
+	10 11 10 11 11
+	Direct
+	0.3333333333	0.3333333333	0.6666666667
+	0.6666666667	0.3333333333	0.3333333333
+
+Note that two changes were made: (i) The first number 11 in line 7 was changed to 10; (ii) the original line 9, which corresponds to the original first ion's position, was removed.
+
+Submit the job by `sbatch vasp.batch`.
+
+#### Removal of the second ion
+
+Create another subdirectory named `2` within the directory `MoNbTaVW`, then copy the five files into it. Note that the `POSCAR` file should be the one in the directory `MoNbTaVW` from this GitHub repository, NOT the one already modified in the previous calculation.
+
+Then edit `POSCAR` by removing the second ion, i.e., keeping lines 1 to 6 unchanged, and from line 7, it should read
+
+	10 11 10 11 11
+	Direct
+	0.0000000000	0.3333333333	0.6666666667
+	0.6666666667	0.3333333333	0.3333333333
+
+Note that two changes were made: (i) The first number 11 in line 7 was changed to 10; (ii) the original line 10, which corresponds to the original second ion's position, was removed.
+
+Submit the job by `sbatch vasp.batch`.
+
+#### Removal of another ion
+
+Follow the steps above. Create a series of subdirectories, `3`, `4`, ..., `54`. The last one is `54` because there are 54 ions in total. Each time, edit `POSCAR` accordingly. Note that
+
+- When it comes to the removal of the 12th to 22nd ion, line 7 should be modified to `11 10 10 11 11`. That is because those ions are Nb ions.
+- Similarly, when it comes to the removal of the 23rd to 32nd ion, line 7 should be `11 11 9 11 11`, because those are Ta ions.
+- Similarly, when it comes to the removal of the 33rd to 43rd ion, line 7 should be `11 11 10 10 11`, because those are V ions.
+- Similarly, when it comes to the removal of the 44th to 54th ion, line 7 should be `11 11 10 11 10`, because those are W ions.
+
+#### No removal of any ion
+
+Create a subdirectory `0`. Do not delete any ion from `POSCAR`. Instead, change the number `53` after `MAGMOM` in `INCAR` to `54`. Submit the job. This is to calculate the energy of the intact structure, _E_<sub>perfect</sub>.
+
+In total, we will run 55 VASP calculations.
+
+Once all 55 jobs were successfully finished. Rename them by adding the corresponding ion name to each subdirectory name. For example, rename `1` as `Mo-1`, rename `2` as `Mo-2`, and so on. Then starting from `12`, rename `12` as `Nb-1`, rename `13` as `Nb-2`, and so on. Leave the last subdirectory as `0`.
+
+Then in calculating the vacancy formation energy, _E_<sub>defective</sub> for the same type of ion (e.g., Mo) should be the mean value among `Mo-1`, `Mo-2`, ..., `Mo-11`. Eventually, we will have five vacancy formation energies, one for each type of element, in the quinary.
 
 ## Quaternaries
 
@@ -162,8 +227,6 @@ Note: the vacancy formation energy for Mo is likely not the same in pure Mo, MoN
 
 Follow the same procedures for MoNbTaV, we can obtain the vacancy formation energies in the other three quaternaries.
 
-Once you are done with this part, email the vacancy formation energies to Subah and me.
-
 ## Ternaries
 
 All ternaries use the same `POSCAR`, which can be found in the `ternaries/` directory in this GitHub repository. There are 54 ions in each ternary.
@@ -179,8 +242,6 @@ Follow the same procedures for MoNbTaV, we can obtain the vacancy formation ener
 ### Other nine ternaries
 
 Follow the same procedures for MoNbTa, we can obtain the vacancy formation energies in the other nine ternaries.
-
-Once you are done with this part, email the vacancy formation energies to Subah and me.
 
 ## Binaries
 
@@ -198,10 +259,8 @@ Follow the same procedures for MoNbTaV, we can obtain the vacancy formation ener
 
 Follow the same procedures for MoNb, we can obtain the vacancy formation energies in the other nine binaries.
 
-Once you are done with this part, email the vacancy formation energies to Subah and me.
-
-## References
+## Reference
 
 If you use any files from this GitHub repository, please cite
 
-- Sheng Yin, Yunxing Zuo, Anas Abu-Odeh, Hui Zheng, Xiang-Guo Li, Jun Ding, Shyue Ping Ong, Mark Asta, Robert O Ritchie, [Atomistic simulations of dislocation mobility in refractory high-entropy alloys and the effect of chemical short-range order](https://doi.org/10.1038/s41467-021-25134-0), npj Comput. Mater. 12 (2021) 4873
+- A.X. Lin-Vines, J.A. Wilson, A. Fraile, Lee J. Evitts, M.J.D. Rushton, J.O. Astbury, W.E. Lee, S.C. Middleburgh, [Defect behaviour in the MoNbTaVW high entropy alloy (HEA)](https://doi.org/10.1016/j.rinma.2022.100320), Results Mater. 15 (2022) 100320
