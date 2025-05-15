@@ -259,6 +259,10 @@ Follow the same procedures for MoNbTaV, we can obtain the vacancy formation ener
 
 Follow the same procedures for MoNb, we can obtain the vacancy formation energies in the other nine binaries.
 
+## Machine learning models
+
+Based on all data, we will train one ore more machine learning (ML) models, following [another GitHub repository](https://github.com/RichardBrinlee/Material-research). The inputs of the ML models include (i) vacancy formation energies of elements in pure metals, (ii) chemical compositions of alloys, and (iii) the specific element in a certain alloy. The outputs of the ML models are the vacancy formation energies of elements in alloys. 
+
 ## Reference
 
 If you use any files from this GitHub repository, please cite
