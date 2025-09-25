@@ -261,7 +261,7 @@ Follow the same procedures for MoNb, we can obtain the vacancy formation energie
 
 ## Machine learning models
 
-Based on all data, we then train one or more machine learning (ML) models, following [another GitHub repository](https://github.com/RichardBrinlee/Material-research). The inputs of the ML models include (i) vacancy formation energies of elements in pure metals, (ii) chemical compositions of alloys, and (iii) the specific element in a certain alloy. The outputs of the ML models are the vacancy formation energies of elements in alloys. 
+Based on all data, we then train four machine learning models, hosted on [another GitHub repository](https://github.com/MahshadFani/ML-JAP-2025). The inputs of the ML models include (i) chemical compositions of the material and (ii) the identity of the specific element in a certain material. The outputs of the ML models are the vacancy formation energies of that specific element in that specific material.
 
 ## Reference
 
